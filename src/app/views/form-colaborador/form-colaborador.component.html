@@ -1,0 +1,46 @@
+<form [formGroup]="form" (ngSubmit)="createOrUpdate()">
+    <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" formControlName="nome" name="nome"
+               placeholder="Digite o nome" [ngClass]="{ 'is-invalid': submitted && f.nome.errors }">
+        <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
+            <div *ngIf="f.nome.errors.required">Nome é obrigatório</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="cpf">CPF</label>
+        <input type="text" class="form-control" formControlName="cpf" [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }"
+               id="cpf" name="cpf" placeholder="Digite o CPF">
+        <div *ngIf="submitted && f.cpf.errors" class="invalid-feedback">
+            <div *ngIf="f.cpf.errors.required">CPF é obrigatório</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="setor">Setor</label>
+        <select #selectSetor class="custom-select" id="setor" formControlName="setor_id" [ngClass]="{ 'is-invalid': submitted && f.setor_id.errors }"
+                name="setor_id">
+            <option selected></option>
+            <option *ngFor="let setor of setores" [value]="setor.id">
+                {{ setor.nome }}
+            </option>
+        </select>
+        <div *ngIf="submitted && f.setor_id.errors" class="invalid-feedback">
+            <div *ngIf="f.setor_id.errors.required">Setor é obrigatório</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="cargo">Cargo</label>
+        <select #selectCargo class="custom-select" id="cargo" formControlName="cargo_id" name="cargo_id" [ngClass]="{ 'is-invalid': submitted && f.cargo_id.errors }">
+            <option selected></option>
+            <option *ngFor="let cargo of cargos" [value]="cargo.id">
+                {{ cargo.nome }}
+            </option>
+        </select>
+        <div *ngIf="submitted && f.cargo_id.errors" class="invalid-feedback">
+            <div *ngIf="f.cargo_id.errors.required">Cargo é obrigatório</div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">{{ id ? 'Atualizar' : 'Cadastrar' }}</button>
+    </div>
+</form>
